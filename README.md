@@ -4,7 +4,7 @@ In this demo, we show the implementation of face_recognition package as well as 
 
 ##Installation 
 
-- Clone the project 
+- Clone the repo
 - Install all dependencies `pip install requirements.txt`
 
 ##Usage
