@@ -5,6 +5,8 @@ import pickle
 
 class Recogniser:
 
+    scaleFactor = 6
+
     def __init__(self, trainer):
         self.trainer = trainer
         pass
@@ -18,11 +20,11 @@ class Recogniser:
             ret, frame = video_capture.read()
 
             # Resize frame of video to 1/4 size for faster face recognition processing
-            small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
+            small_frame = cv2.resize(frame, (0, 0), fx=1/self.scaleFactor, fy=1/self.scaleFactor)
 
             # Only process every other frame of video to save time
             if process_this_frame:
-                predictions = self.predict(frame)
+                predictions = self.predict(small_frame)
 
             process_this_frame = not process_this_frame
             self.highlight_faces(frame, predictions)
@@ -36,10 +38,16 @@ class Recogniser:
         cv2.destroyAllWindows()
 
     def highlight_faces(self, frame, predictions):
-        for name, (top, right, bottom, left) in predictions:
-            overlay = frame.copy()
-            name = name.encode("UTF-8")
 
+        for name, (top, right, bottom, left) in predictions:
+            top = top * self.scaleFactor
+            right = right * self.scaleFactor
+            bottom = bottom * self.scaleFactor
+            left = left * self.scaleFactor
+            overlay = frame.copy()
+            print(type(name))
+            # name = name.encode("UTF-8")
+            print(name)
             # Draw a box around the face
             cv2.rectangle(frame, (left, top), (right, bottom), (255, 255, 255), 1)
 
