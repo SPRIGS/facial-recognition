@@ -3,7 +3,7 @@ attrs==19.1.0
 autopep8==1.4.4
 backports.shutil-get-terminal-size==1.0.0
 btlejack==1.1.2
-certifi==2018.10.15
+certifi==2022.12.7
 chardet==3.0.4
 Click==7.0
 colorama==0.3.9
